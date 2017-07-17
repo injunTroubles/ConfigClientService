@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestConfiguration {
 
     @Bean(name = "configSvcConnMgr")
-    PoolingHttpClientConnectionManager configSvcConnMgr(){
+    PoolingHttpClientConnectionManager configSvcConnMgr() {
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setDefaultMaxPerRoute(5);
         connectionManager.setMaxTotal(10);
@@ -30,8 +30,8 @@ public class RestConfiguration {
     }
 
     @Bean(name = "configSvcCreds")
-    Credentials configSvcCreds(@Value("${spring.cloud.config.username}") String username,
-                                  @Value("${spring.cloud.config.password}") String password) {
+    Credentials configSvcCreds(@Value("${config.alt.username}") String username,
+                               @Value("${config.alt.password}") String password) {
         return new UsernamePasswordCredentials(username, password);
     }
 
