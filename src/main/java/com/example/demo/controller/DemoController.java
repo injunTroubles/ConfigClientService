@@ -40,18 +40,18 @@ public class DemoController {
         return MessageFormat.format(messageText, foo);
     }
 
-    @RequestMapping(path = "{fileName}.json", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public String getJson(@PathVariable final String fileName, final HttpServletRequest request){
+    @RequestMapping(path = "{directory}/{fileName}.json", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String getJson(@PathVariable final String directory, @PathVariable final String fileName, final HttpServletRequest request){
         String fileToFind = FilenameUtils.getName(request.getRequestURL().toString());
-        String url = MessageFormat.format(configAltUrl, fileToFind);
+        String url = MessageFormat.format(configAltUrl, directory, fileToFind);
 
         return restTemplate.getForObject(url, String.class);
     }
 
-    @RequestMapping(path = {"{fileName}.yaml", "{fileName}.yml"}, method = RequestMethod.GET)
-    public String getYaml(@PathVariable final String fileName, final HttpServletRequest request) throws Exception {
+    @RequestMapping(path = {"{directory}/{fileName}.yaml", "{directory}/{fileName}.yml"}, method = RequestMethod.GET)
+    public String getYaml(@PathVariable final String directory, @PathVariable final String fileName, final HttpServletRequest request) throws Exception {
         String fileToFind = FilenameUtils.getName(request.getRequestURL().toString());
-        String url = MessageFormat.format(configAltUrl, fileToFind);
+        String url = MessageFormat.format(configAltUrl, directory, fileToFind);
 
         return restTemplate.getForObject(url, String.class);
     }
